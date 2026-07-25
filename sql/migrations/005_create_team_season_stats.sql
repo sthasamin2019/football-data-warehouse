@@ -1,0 +1,26 @@
+CREATE TABLE team_season_stats (
+    stat_id       SERIAL PRIMARY KEY,
+    team_id       INT NOT NULL REFERENCES teams(team_id),
+    season_id     INT NOT NULL REFERENCES seasons(season_id),
+    stats_date    DATE NOT NULL,
+    lg_rank       INT,
+    mp            INT NOT NULL,
+    w             INT NOT NULL,
+    d             INT NOT NULL,
+    l             INT NOT NULL,
+    gf            INT NOT NULL,
+    ga            INT NOT NULL,
+    gd            INT,
+    pts           INT NOT NULL,
+    pts_per_mp    NUMERIC(4,2),
+    xg            NUMERIC(5,1),
+    xga           NUMERIC(5,1),
+    xgd           NUMERIC(5,1),
+    xgd_90        NUMERIC(4,2),
+    attendance    INT,
+
+    UNIQUE (team_id, season_id, stats_date),
+    CHECK (w + d + l = mp),
+    CHECK (gd = gf - ga),
+    CHECK (pts >= 0)
+);
