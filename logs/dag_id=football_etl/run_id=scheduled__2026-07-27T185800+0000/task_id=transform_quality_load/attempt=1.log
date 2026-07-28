@@ -1,0 +1,63 @@
+[2026-07-27T19:00:01.985+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-07-27T19:00:02.024+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.transform_quality_load scheduled__2026-07-27T18:58:00+00:00 [queued]>
+[2026-07-27T19:00:02.033+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.transform_quality_load scheduled__2026-07-27T18:58:00+00:00 [queued]>
+[2026-07-27T19:00:02.034+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-07-27T19:00:02.050+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): transform_quality_load> on 2026-07-27 18:58:00+00:00
+[2026-07-27T19:00:02.059+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'transform_quality_load', 'scheduled__2026-07-27T18:58:00+00:00', '--job-id', '89', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmpduyw92kf']
+[2026-07-27T19:00:02.063+0000] {standard_task_runner.py:91} INFO - Job 89: Subtask transform_quality_load
+[2026-07-27T19:00:02.065+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=324) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-07-27T19:00:02.066+0000] {standard_task_runner.py:64} INFO - Started process 325 to run task
+[2026-07-27T19:00:02.151+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.transform_quality_load scheduled__2026-07-27T18:58:00+00:00 [running]> on host 862cfaa95cf8
+[2026-07-27T19:00:02.259+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='transform_quality_load' AIRFLOW_CTX_EXECUTION_DATE='2026-07-27T18:58:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-27T18:58:00+00:00'
+[2026-07-27T19:00:02.260+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-07-27T19:00:02.651+0000] {extract.py:33} INFO - Extracted 98 rows from data/raw/standings_2022_23.csv
+[2026-07-27T19:00:02.810+0000] {transform.py:38} INFO - Goalkeeper field may contain multiple names: 'Pepe Reina GerÃ³nimo Rulli'
+[2026-07-27T19:00:08.117+0000] {generate_synthetic.py:74} INFO - Generated 14000 synthetic team-season rows across 5 seasons
+[2026-07-27T19:00:08.129+0000] {transform.py:93} INFO - Transformed 98 real rows + 14000 synthetic rows into 98 teams, 14098 total stat rows, 98 scorer rows, 98 keeper rows
+[2026-07-27T19:00:08.142+0000] {quality.py:85} INFO - [PASS] null_check: No nulls in required fields
+[2026-07-27T19:00:08.143+0000] {quality.py:85} INFO - [PASS] range_check: All values within expected ranges
+[2026-07-27T19:00:08.144+0000] {quality.py:85} INFO - [PASS] consistency_check: All rows internally consistent
+[2026-07-27T19:00:08.145+0000] {quality.py:85} INFO - [PASS] uniqueness_check: No duplicate team/date rows
+[2026-07-27T19:00:08.146+0000] {quality.py:85} INFO - [PASS] league_reference_check: All leagues recognized
+[2026-07-27T19:00:08.146+0000] {quality.py:93} INFO - All 5 quality checks passed
+[2026-07-27T19:00:08.164+0000] {load.py:150} ERROR - Load failed, rolled back: relation "leagues" does not exist
+LINE 1: SELECT league_id FROM leagues WHERE league_name = 'La Liga'
+                              ^
+
+[2026-07-27T19:00:08.165+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-07-27T19:00:08.166+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/football_etl_dag.py", line 28, in run_transform_and_quality_and_load
+    load(result["team_season_stats"], result.get("top_scorers"), result.get("goalkeepers"))
+  File "/opt/airflow/pipeline/load.py", line 99, in load
+    league_id = get_or_create_league(cur, league_cache, row["league_name"])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/pipeline/load.py", line 33, in get_or_create_league
+    cur.execute("SELECT league_id FROM leagues WHERE league_name = %s", (league_name,))
+psycopg2.errors.UndefinedTable: relation "leagues" does not exist
+LINE 1: SELECT league_id FROM leagues WHERE league_name = 'La Liga'
+                              ^
+
+[2026-07-27T19:00:08.188+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=football_etl, task_id=transform_quality_load, run_id=scheduled__2026-07-27T18:58:00+00:00, execution_date=20260727T185800, start_date=20260727T190002, end_date=20260727T190008
+[2026-07-27T19:00:08.199+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 89 for task transform_quality_load (relation "leagues" does not exist
+LINE 1: SELECT league_id FROM leagues WHERE league_name = 'La Liga'
+                              ^
+; 325)
+[2026-07-27T19:00:08.240+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-07-27T19:00:08.268+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-07-27T19:00:08.272+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

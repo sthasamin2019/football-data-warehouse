@@ -1,0 +1,61 @@
+[2026-07-27T19:44:01.730+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-07-27T19:44:01.774+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.transform_quality_load scheduled__2026-07-27T19:42:00+00:00 [queued]>
+[2026-07-27T19:44:01.786+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.transform_quality_load scheduled__2026-07-27T19:42:00+00:00 [queued]>
+[2026-07-27T19:44:01.787+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-07-27T19:44:01.803+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): transform_quality_load> on 2026-07-27 19:42:00+00:00
+[2026-07-27T19:44:01.811+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'transform_quality_load', 'scheduled__2026-07-27T19:42:00+00:00', '--job-id', '203', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmpeo0evxek']
+[2026-07-27T19:44:01.815+0000] {standard_task_runner.py:91} INFO - Job 203: Subtask transform_quality_load
+[2026-07-27T19:44:01.818+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=214) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-07-27T19:44:01.820+0000] {standard_task_runner.py:64} INFO - Started process 215 to run task
+[2026-07-27T19:44:01.907+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.transform_quality_load scheduled__2026-07-27T19:42:00+00:00 [running]> on host ce06808e4a84
+[2026-07-27T19:44:02.013+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='transform_quality_load' AIRFLOW_CTX_EXECUTION_DATE='2026-07-27T19:42:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-27T19:42:00+00:00'
+[2026-07-27T19:44:02.015+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-07-27T19:44:02.477+0000] {extract.py:33} INFO - Extracted 98 rows from data/raw/standings_2022_23.csv
+[2026-07-27T19:44:02.673+0000] {transform.py:38} INFO - Goalkeeper field may contain multiple names: 'Pepe Reina GerÃ³nimo Rulli'
+[2026-07-27T19:44:10.759+0000] {generate_synthetic.py:74} INFO - Generated 14000 synthetic team-season rows across 5 seasons
+[2026-07-27T19:44:10.773+0000] {transform.py:93} INFO - Transformed 98 real rows + 14000 synthetic rows into 98 teams, 14098 total stat rows, 98 scorer rows, 98 keeper rows
+[2026-07-27T19:44:10.788+0000] {quality.py:85} INFO - [PASS] null_check: No nulls in required fields
+[2026-07-27T19:44:10.789+0000] {quality.py:85} INFO - [PASS] range_check: All values within expected ranges
+[2026-07-27T19:44:10.789+0000] {quality.py:85} INFO - [PASS] consistency_check: All rows internally consistent
+[2026-07-27T19:44:10.790+0000] {quality.py:85} INFO - [PASS] uniqueness_check: No duplicate team/date rows
+[2026-07-27T19:44:10.790+0000] {quality.py:85} INFO - [PASS] league_reference_check: All leagues recognized
+[2026-07-27T19:44:10.791+0000] {quality.py:93} INFO - All 5 quality checks passed
+[2026-07-27T19:44:10.792+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-07-27T19:44:10.793+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/football_etl_dag.py", line 28, in run_transform_and_quality_and_load
+    load(result["team_season_stats"], result.get("top_scorers"), result.get("goalkeepers"))
+  File "/opt/airflow/pipeline/load.py", line 89, in load
+    conn = get_connection()
+           ^^^^^^^^^^^^^^^^
+  File "/opt/airflow/pipeline/load.py", line 21, in get_connection
+    return psycopg2.connect(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "postgres" (172.18.0.2), port 5433 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2026-07-27T19:44:10.816+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=football_etl, task_id=transform_quality_load, run_id=scheduled__2026-07-27T19:42:00+00:00, execution_date=20260727T194200, start_date=20260727T194401, end_date=20260727T194410
+[2026-07-27T19:44:10.828+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 203 for task transform_quality_load (connection to server at "postgres" (172.18.0.2), port 5433 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+; 215)
+[2026-07-27T19:44:10.857+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-07-27T19:44:10.913+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-07-27T19:44:10.919+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

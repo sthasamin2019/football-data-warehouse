@@ -1,0 +1,54 @@
+[2026-07-27T19:49:44.343+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-07-27T19:49:44.400+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-07-27T19:32:00+00:00 [queued]>
+[2026-07-27T19:49:44.412+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-07-27T19:32:00+00:00 [queued]>
+[2026-07-27T19:49:44.413+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-07-27T19:49:44.434+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): warehouse_load> on 2026-07-27 19:32:00+00:00
+[2026-07-27T19:49:44.447+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'warehouse_load', 'scheduled__2026-07-27T19:32:00+00:00', '--job-id', '220', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmpz_vtnghk']
+[2026-07-27T19:49:44.451+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=249) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-07-27T19:49:44.452+0000] {standard_task_runner.py:91} INFO - Job 220: Subtask warehouse_load
+[2026-07-27T19:49:44.453+0000] {standard_task_runner.py:64} INFO - Started process 250 to run task
+[2026-07-27T19:49:44.546+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.warehouse_load scheduled__2026-07-27T19:32:00+00:00 [running]> on host b478b38d86c0
+[2026-07-27T19:49:44.729+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='warehouse_load' AIRFLOW_CTX_EXECUTION_DATE='2026-07-27T19:32:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-27T19:32:00+00:00'
+[2026-07-27T19:49:44.731+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-07-27T19:50:03.589+0000] {warehouse_load.py:126} INFO - Fetched 14098 rows from OLTP for warehouse load
+[2026-07-27T19:50:03.591+0000] {warehouse_load.py:168} ERROR - Warehouse ETL failed, rolled back: relation "dim_team" does not exist
+LINE 1: SELECT team_key FROM dim_team WHERE team_name='Barcelona' AN...
+                             ^
+
+[2026-07-27T19:50:03.593+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-07-27T19:50:03.596+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 401, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/football_etl_dag.py", line 33, in run_warehouse_load
+    run_warehouse_etl()
+  File "/opt/airflow/pipeline/warehouse_load.py", line 134, in run_warehouse_etl
+    team_key = get_or_create_dim_team(dwh_cur, team_cache, team_name, league_name, country_code)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/pipeline/warehouse_load.py", line 36, in get_or_create_dim_team
+    dwh_cur.execute("SELECT team_key FROM dim_team WHERE team_name=%s AND league_name=%s",
+psycopg2.errors.UndefinedTable: relation "dim_team" does not exist
+LINE 1: SELECT team_key FROM dim_team WHERE team_name='Barcelona' AN...
+                             ^
+
+[2026-07-27T19:50:03.622+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=football_etl, task_id=warehouse_load, run_id=scheduled__2026-07-27T19:32:00+00:00, execution_date=20260727T193200, start_date=20260727T194944, end_date=20260727T195003
+[2026-07-27T19:50:03.639+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 220 for task warehouse_load (relation "dim_team" does not exist
+LINE 1: SELECT team_key FROM dim_team WHERE team_name='Barcelona' AN...
+                             ^
+; 250)
+[2026-07-27T19:50:03.678+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 1
+[2026-07-27T19:50:03.699+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-07-27T19:50:03.701+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

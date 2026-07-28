@@ -1,3 +1,4 @@
+
 import pandas as pd
 import re
 import logging
@@ -81,13 +82,22 @@ def transform(raw_df: pd.DataFrame) -> dict:
         columns={"Squad": "team_name"}
     )
 
-    logging.info(f"Transformed {len(df)} rows into "
-                 f"{len(teams)} teams, {len(team_season_stats)} stat rows, "
+    # --- Combine real data with Faker-generated synthetic data ---
+    from pipeline.generate_synthetic import generate_synthetic_dataset
+    synthetic = generate_synthetic_dataset(n_rows=14000)
+    combined_stats = pd.concat(
+        [team_season_stats.assign(source="real"), synthetic.assign(source="synthetic")],
+        ignore_index=True
+    )
+
+    logging.info(f"Transformed {len(df)} real rows + {len(synthetic)} synthetic rows into "
+                 f"{len(teams)} teams, {len(combined_stats)} total stat rows, "
                  f"{len(top_scorers)} scorer rows, {len(goalkeepers)} keeper rows")
 
     return {
         "teams": teams,
-        "team_season_stats": team_season_stats,
+        "team_season_stats": combined_stats,
+        "team_season_stats_real_only": team_season_stats,
         "top_scorers": top_scorers,
         "goalkeepers": goalkeepers,
     }

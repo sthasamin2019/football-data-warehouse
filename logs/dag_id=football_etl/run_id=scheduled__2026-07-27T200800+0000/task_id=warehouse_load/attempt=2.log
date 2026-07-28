@@ -1,0 +1,16 @@
+[2026-07-27T20:22:10.284+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-07-27T20:22:10.391+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-07-27T20:08:00+00:00 [queued]>
+[2026-07-27T20:22:10.412+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-07-27T20:08:00+00:00 [queued]>
+[2026-07-27T20:22:10.414+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 4
+[2026-07-27T20:22:10.527+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): warehouse_load> on 2026-07-27 20:08:00+00:00
+[2026-07-27T20:22:10.550+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'warehouse_load', 'scheduled__2026-07-27T20:08:00+00:00', '--job-id', '286', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmpwyhfkwb_']
+[2026-07-27T20:22:10.559+0000] {standard_task_runner.py:91} INFO - Job 286: Subtask warehouse_load
+[2026-07-27T20:22:10.577+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=169) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-07-27T20:22:10.582+0000] {standard_task_runner.py:64} INFO - Started process 174 to run task
+[2026-07-27T20:22:10.840+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.warehouse_load scheduled__2026-07-27T20:08:00+00:00 [running]> on host b478b38d86c0
+[2026-07-27T20:22:11.094+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='warehouse_load' AIRFLOW_CTX_EXECUTION_DATE='2026-07-27T20:08:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-27T20:08:00+00:00'
+[2026-07-27T20:22:11.098+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-07-27T20:22:36.523+0000] {local_task_job_runner.py:124} ERROR - Received SIGTERM. Terminating subprocesses
+[2026-07-27T20:22:36.567+0000] {process_utils.py:132} INFO - Sending 15 to group 174. PIDs of all processes in the group: [174]
+[2026-07-27T20:22:36.586+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 174
+[2026-07-27T20:22:39.526+0000] {local_task_job_runner.py:124} ERROR - Received SIGTERM. Terminating subprocesses

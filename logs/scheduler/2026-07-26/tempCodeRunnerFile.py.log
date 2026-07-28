@@ -1,0 +1,18 @@
+[2026-07-26T04:00:17.535+0000] {processor.py:161} INFO - Started process (PID=170) to work on /opt/airflow/dags/tempCodeRunnerFile.py
+[2026-07-26T04:00:17.537+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/tempCodeRunnerFile.py for tasks to queue
+[2026-07-26T04:00:17.542+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:17.541+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/tempCodeRunnerFile.py
+[2026-07-26T04:00:17.611+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/tempCodeRunnerFile.py
+[2026-07-26T04:00:18.018+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:18.017+0000] {override.py:1858} INFO - Created Permission View: can delete on DAG:football_etl
+[2026-07-26T04:00:18.033+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:18.032+0000] {override.py:1858} INFO - Created Permission View: can edit on DAG:football_etl
+[2026-07-26T04:00:18.042+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:18.041+0000] {override.py:1858} INFO - Created Permission View: can read on DAG:football_etl
+[2026-07-26T04:00:18.044+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:18.044+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-07-26T04:00:18.067+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:18.067+0000] {dag.py:3111} INFO - Creating ORM DAG for football_etl
+[2026-07-26T04:00:18.083+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:18.083+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-07-30 00:00:00+00:00, run_after=2026-07-31 00:00:00+00:00
+[2026-07-26T04:00:18.111+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/tempCodeRunnerFile.py took 0.592 seconds
+[2026-07-26T04:00:48.386+0000] {processor.py:161} INFO - Started process (PID=180) to work on /opt/airflow/dags/tempCodeRunnerFile.py
+[2026-07-26T04:00:48.387+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/tempCodeRunnerFile.py for tasks to queue
+[2026-07-26T04:00:48.390+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:48.389+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/tempCodeRunnerFile.py
+[2026-07-26T04:00:48.420+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/tempCodeRunnerFile.py
+[2026-07-26T04:00:48.461+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:48.461+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-07-26T04:00:48.490+0000] {logging_mixin.py:188} INFO - [2026-07-26T04:00:48.490+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-07-30 00:00:00+00:00, run_after=2026-07-31 00:00:00+00:00
+[2026-07-26T04:00:48.513+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/tempCodeRunnerFile.py took 0.137 seconds
