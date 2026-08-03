@@ -1,4 +1,3 @@
-
 import os
 import random
 import logging
@@ -81,6 +80,20 @@ def get_or_create_player(cur, cache, player_name, role=None):
     return new_id
 
 
+def get_watermark(cur, pipeline_name="football_etl"):
+    cur.execute("SELECT last_run_at, last_row_count FROM pipeline_watermark WHERE pipeline_name=%s", (pipeline_name,))
+    row = cur.fetchone()
+    return row if row else (None, 0)
+
+
+def update_watermark(cur, inserted_count, pipeline_name="football_etl"):
+    cur.execute("""
+        UPDATE pipeline_watermark
+        SET last_run_at = NOW(), last_row_count = last_row_count + %s
+        WHERE pipeline_name = %s
+    """, (inserted_count, pipeline_name))
+
+
 def pd_notna(value):
     return pd.notna(value)
 
@@ -141,6 +154,7 @@ def load(stats_df, top_scorers_df=None, goalkeepers_df=None):
                     VALUES (%s, %s)
                 """, (stat_id, player_id))
 
+        update_watermark(cur, inserted)
         conn.commit()
         logging.info(f"Load complete: {inserted} new rows inserted, {skipped} rows skipped (already existed)")
         print(f"Load complete: {inserted} inserted, {skipped} skipped")

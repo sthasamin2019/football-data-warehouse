@@ -1,0 +1,20 @@
+[2026-07-28T16:40:36.835+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-07-28T16:40:36.955+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.extract scheduled__2026-07-28T16:38:00+00:00 [queued]>
+[2026-07-28T16:40:36.976+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.extract scheduled__2026-07-28T16:38:00+00:00 [queued]>
+[2026-07-28T16:40:36.982+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-07-28T16:40:37.024+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): extract> on 2026-07-28 16:38:00+00:00
+[2026-07-28T16:40:37.057+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=170) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-07-28T16:40:37.060+0000] {standard_task_runner.py:64} INFO - Started process 176 to run task
+[2026-07-28T16:40:37.048+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'extract', 'scheduled__2026-07-28T16:38:00+00:00', '--job-id', '294', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmp8f3rby4z']
+[2026-07-28T16:40:37.064+0000] {standard_task_runner.py:91} INFO - Job 294: Subtask extract
+[2026-07-28T16:40:37.263+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.extract scheduled__2026-07-28T16:38:00+00:00 [running]> on host b478b38d86c0
+[2026-07-28T16:40:37.475+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='extract' AIRFLOW_CTX_EXECUTION_DATE='2026-07-28T16:38:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-07-28T16:38:00+00:00'
+[2026-07-28T16:40:37.478+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-07-28T16:40:39.415+0000] {extract.py:33} INFO - Extracted 98 rows from data/raw/standings_2022_23.csv
+[2026-07-28T16:40:39.416+0000] {logging_mixin.py:188} INFO - Extracted 98 rows
+[2026-07-28T16:40:39.417+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-07-28T16:40:39.419+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-07-28T16:40:39.436+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=football_etl, task_id=extract, run_id=scheduled__2026-07-28T16:38:00+00:00, execution_date=20260728T163800, start_date=20260728T164036, end_date=20260728T164039
+[2026-07-28T16:40:39.498+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-07-28T16:40:39.548+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-07-28T16:40:39.552+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
