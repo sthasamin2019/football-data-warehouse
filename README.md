@@ -17,56 +17,57 @@ The pipeline consists of five stages:
 5. **Warehouse Load** — reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
 
 ## Data Flow
-                  +---------------+
-                  |    Raw CSV    |
-                  | (98 rows)     |
-                  +-------+-------+
-                          |
-                          v
-+------------------------------------------------------+
-|                       EXTRACT                        |
-|  - Reads CSV, validates columns                      |
-|  - Logs row count                                    |
-+-------------------------+----------------------------+
-                          |
-                          v
-+------------------------------------------------------+
-|                      TRANSFORM                       |
-|  - Cleans scorer/goalkeeper fields                   |
-|  - Maps country -> league                            |
-|  - Faker: generates new incremental batch            |
-|    (tracked via watermark)                           |
-+-------------------------+----------------------------+
-                          |
-                          v
-+------------------------------------------------------+
-|                    QUALITY GATE                      |
-|  - Null, range, consistency, uniqueness, referential |
-|  - Fail = abort load, no bad data persisted          |
-+-------------------------+----------------------------+
-                          |
-                          v
-+------------------------------------------------------+
-|                     LOAD (OLTP)                      |
-|  - Idempotent upserts                                |
-|  - 7 normalized tables (leagues, teams, players...)  |
-+-------------------------+----------------------------+
-                          |
-                          v
-+------------------------------------------------------+
-|                   WAREHOUSE LOAD                     |
-|  - Star schema: 1 fact table + 4 dimensions          |
-|    (team, season, player, date)                      |
-+-------------------------+----------------------------+
-                          |
-                          v
-                  +---------------+
-                  |   Metabase    |
-                  |  Dashboards   |
-                  +---------------+
+@'
+```
+              +---------------+
+              |    Raw CSV    |
+              | (98 rows)     |
+              +-------+-------+
+                      |
+                      v
 
-  Orchestrated end-to-end by Airflow (daily, 3 retries)
-
++--------------------------------+
+| EXTRACT                        |
+| - Reads CSV, validates columns |
+| - Logs row count               |
++-------------------------+------+
+|
+v
++------------------------------------------+
+| TRANSFORM                                 |
+| - Cleans scorer/goalkeeper fields         |
+| - Maps country -> league                  |
+| - Faker: generates new incremental batch  |
+| (tracked via watermark)                   |
++-------------------------+-----------------+
+|
+v
++-----------------------------------------------------+
+| QUALITY GATE                                        |
+| - Null, range, consistency, uniqueness, referential |
+| - Fail = abort load, no bad data persisted          |
++-------------------------+---------------------------+
+|
+v
++----------------------------------------------------+
+| LOAD (OLTP)                                        |
+| - Idempotent upserts                               |
+| - 7 normalized tables (leagues, teams, players...) |
++-------------------------+--------------------------+
+|
+v
++--------------------------------------------+
+| WAREHOUSE LOAD                             |
+| - Star schema: 1 fact table + 4 dimensions |
+| (team, season, player, date)               |
++-------------------------+-------------------+
+|
+v
++------------+
+| Metabase   |
+| Dashboards |
++------------+
+```
 ## Incremental Watermark Loading
 
 A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off — rather than regenerating the full dataset every time. This means:
