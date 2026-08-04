@@ -17,7 +17,7 @@ The pipeline consists of five stages:
 5. **Warehouse Load** — reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
 
 ## Data Flow
-@'
+
 ```
               +---------------+
               |    Raw CSV    |
@@ -67,6 +67,8 @@ v
 | Metabase   |
 | Dashboards |
 +------------+
+Orchestrated end-to-end by Airflow (daily, 3 retries)
+
 ```
 ## Incremental Watermark Loading
 
