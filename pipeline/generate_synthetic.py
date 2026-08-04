@@ -1,4 +1,3 @@
-
 from faker import Faker
 import pandas as pd
 import random
@@ -12,11 +11,8 @@ logging.basicConfig(
 )
 
 fake = Faker()
-Faker.seed(42)
-random.seed(42)
 
 LEAGUES = ["Premier League", "La Liga", "Serie A", "Ligue 1", "Bundesliga"]
-
 FOOTBALL_SUFFIXES = ["FC", "United", "City", "Athletic", "Rovers", "Town", "Wanderers"]
 
 
@@ -55,12 +51,16 @@ def generate_stat_row(stats_date) -> dict:
     }
 
 
-def generate_synthetic_dataset(n_rows: int) -> pd.DataFrame:
+def generate_synthetic_dataset(n_rows: int, start_index: int = 0) -> pd.DataFrame:
+    Faker.seed(42 + start_index)
+    random.seed(42 + start_index)
+    """Generate synthetic rows. start_index offsets the row numbering so
+    incremental runs can generate a fresh, non-overlapping batch."""
     seasons = ["2020-21", "2021-22", "2022-23", "2023-24", "2024-25"]
     snapshot_dates = ["-09-15", "-12-01", "-03-01", "-05-15"]
 
     rows = []
-    for i in range(n_rows):
+    for i in range(start_index, start_index + n_rows):
         season = random.choice(seasons)
         year = int(season[:4])
         date_suffix = random.choice(snapshot_dates)
@@ -71,12 +71,32 @@ def generate_synthetic_dataset(n_rows: int) -> pd.DataFrame:
         rows.append(row)
 
     df = pd.DataFrame(rows)
-    logging.info(f"Generated {len(df)} synthetic team-season rows across {len(seasons)} seasons")
+    logging.info(f"Generated {len(df)} synthetic rows (index {start_index} to {start_index+n_rows-1})")
     return df
+
+
+def generate_synthetic_incremental(cur, batch_size: int = 500) -> pd.DataFrame:
+    """Reads the watermark to determine how many synthetic rows already
+    exist, then generates only the next batch ??? true incremental growth
+    instead of regenerating the full dataset every run."""
+    cur.execute("SELECT last_synthetic_seed FROM pipeline_watermark WHERE pipeline_name='football_etl'")
+    row = cur.fetchone()
+    start_index = row[0] if row and row[0] else 0
+
+    new_batch = generate_synthetic_dataset(n_rows=batch_size, start_index=start_index)
+
+    cur.execute("""
+        UPDATE pipeline_watermark
+        SET last_synthetic_seed = %s
+        WHERE pipeline_name = 'football_etl'
+    """, (start_index + batch_size,))
+
+    logging.info(f"Incremental synthetic batch: rows {start_index} to {start_index+batch_size-1}")
+    return new_batch
 
 
 if __name__ == "__main__":
     synthetic_df = generate_synthetic_dataset(n_rows=14000)
     print(f"Generated {len(synthetic_df)} synthetic rows")
     print(synthetic_df.head(5))
-    print(synthetic_df["season_label"].value_counts())
+

@@ -35,7 +35,7 @@ def clean_keeper_field(value: str):
     return name
 
 
-def transform(raw_df: pd.DataFrame) -> dict:
+def transform(raw_df: pd.DataFrame, cur=None, synthetic_batch_size: int = 500) -> dict:
     df = raw_df.copy()
 
     df["league_name"] = df["Country"].map(COUNTRY_TO_LEAGUE)
@@ -86,16 +86,20 @@ def transform(raw_df: pd.DataFrame) -> dict:
         on=["team_name", "stats_date"], how="left"
     )
 
-    from pipeline.generate_synthetic import generate_synthetic_dataset
-    synthetic = generate_synthetic_dataset(n_rows=14000)
+    if cur is not None:
+        from pipeline.generate_synthetic import generate_synthetic_incremental
+        synthetic = generate_synthetic_incremental(cur, batch_size=synthetic_batch_size)
+    else:
+        from pipeline.generate_synthetic import generate_synthetic_dataset
+        synthetic = generate_synthetic_dataset(n_rows=synthetic_batch_size)
+
     combined_stats = pd.concat(
         [real_with_players.assign(source="real"), synthetic.assign(source="synthetic")],
         ignore_index=True
     )
 
-    logging.info(f"Transformed {len(df)} real rows + {len(synthetic)} synthetic rows into "
-                 f"{len(teams)} teams, {len(combined_stats)} total stat rows, "
-                 f"{len(top_scorers)} scorer rows, {len(goalkeepers)} keeper rows")
+    logging.info(f"Transformed {len(df)} real rows + {len(synthetic)} new synthetic rows into "
+                 f"{len(teams)} teams, {len(combined_stats)} total stat rows this run")
 
     return {
         "teams": teams,
@@ -113,4 +117,3 @@ if __name__ == "__main__":
     for name, table in result.items():
         print(f"\n--- {name} ({len(table)} rows) ---")
         print(table.head(3))
-

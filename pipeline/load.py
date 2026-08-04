@@ -167,14 +167,20 @@ def load(stats_df, top_scorers_df=None, goalkeepers_df=None):
         cur.close()
         conn.close()
 
-
 if __name__ == "__main__":
     from pipeline.extract import extract
     from pipeline.transform import transform
     from pipeline.quality import run_quality_checks
 
+    conn = get_connection()
+    cur = conn.cursor()
+
     raw = extract()
-    result = transform(raw)
+    result = transform(raw, cur=cur, synthetic_batch_size=500)
+
+    conn.commit()
+    cur.close()
+    conn.close()
 
     checks = run_quality_checks(result["team_season_stats"])
     failed = [c for c in checks if not c.passed]
@@ -184,3 +190,5 @@ if __name__ == "__main__":
             print(f)
     else:
         load(result["team_season_stats"], result.get("top_scorers"), result.get("goalkeepers"))
+
+
