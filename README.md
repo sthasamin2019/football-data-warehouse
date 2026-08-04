@@ -131,4 +131,4 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 - CI pipeline (GitHub Actions) to run the test suite automatically on every push
 
 ## Demo
-[VIDEO LINK GOES HERE]
+[https://www.loom.com/share/2add7240dbe24864bb209f1df0b65ad5]
