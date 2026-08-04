@@ -1,4 +1,3 @@
-
 import pandas as pd
 import re
 import logging
@@ -22,7 +21,6 @@ SEASON_LABEL = "2022-23"
 
 
 def split_scorer_field(value: str):
-    """Split 'Name - N' into (player_name, goals). Falls back gracefully."""
     match = re.match(r"^(.*)\s-\s(\d+)$", str(value).strip())
     if match:
         return match.group(1).strip(), int(match.group(2))
@@ -31,8 +29,6 @@ def split_scorer_field(value: str):
 
 
 def clean_keeper_field(value: str):
-    """Goalkeeper field has no reliable delimiter for multi-keeper rows.
-    Kept as a single string; logged for visibility."""
     name = str(value).strip()
     if len(name.split()) > 3:
         logging.info(f"Goalkeeper field may contain multiple names: '{name}'")
@@ -82,11 +78,18 @@ def transform(raw_df: pd.DataFrame) -> dict:
         columns={"Squad": "team_name"}
     )
 
-    # --- Combine real data with Faker-generated synthetic data ---
+    real_with_players = team_season_stats.merge(
+        top_scorers[["team_name", "stats_date", "scorer_name", "scorer_goals"]],
+        on=["team_name", "stats_date"], how="left"
+    ).merge(
+        goalkeepers[["team_name", "stats_date", "goalkeeper_name"]],
+        on=["team_name", "stats_date"], how="left"
+    )
+
     from pipeline.generate_synthetic import generate_synthetic_dataset
     synthetic = generate_synthetic_dataset(n_rows=14000)
     combined_stats = pd.concat(
-        [team_season_stats.assign(source="real"), synthetic.assign(source="synthetic")],
+        [real_with_players.assign(source="real"), synthetic.assign(source="synthetic")],
         ignore_index=True
     )
 
@@ -110,3 +113,4 @@ if __name__ == "__main__":
     for name, table in result.items():
         print(f"\n--- {name} ({len(table)} rows) ---")
         print(table.head(3))
+

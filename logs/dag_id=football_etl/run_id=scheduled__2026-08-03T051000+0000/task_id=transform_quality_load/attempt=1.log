@@ -20,3 +20,11 @@
 [2026-08-03T05:12:11.469+0000] {quality.py:85} INFO - [PASS] uniqueness_check: No duplicate team/date rows
 [2026-08-03T05:12:11.470+0000] {quality.py:85} INFO - [PASS] league_reference_check: All leagues recognized
 [2026-08-03T05:12:11.471+0000] {quality.py:93} INFO - All 5 quality checks passed
+[2026-08-03T05:12:20.452+0000] {load.py:159} INFO - Load complete: 0 new rows inserted, 14098 rows skipped (already existed)
+[2026-08-03T05:12:20.456+0000] {logging_mixin.py:188} INFO - Load complete: 0 inserted, 14098 skipped
+[2026-08-03T05:12:20.472+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-08-03T05:12:20.473+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-08-03T05:12:20.493+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=football_etl, task_id=transform_quality_load, run_id=scheduled__2026-08-03T05:10:00+00:00, execution_date=20260803T051000, start_date=20260803T051203, end_date=20260803T051220
+[2026-08-03T05:12:20.575+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-08-03T05:12:20.607+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-08-03T05:12:20.609+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
