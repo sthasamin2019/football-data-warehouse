@@ -1,3 +1,14 @@
+# =====================================================================
+# pipeline/warehouse_load.py
+#
+# Stage 5 of the pipeline: reads already-loaded data from the OLTP
+# database and populates the star-schema warehouse (football_dwh).
+#
+# This is a genuine ETL step between two SEPARATE databases -- OLTP
+# and the warehouse live in different Postgres databases on purpose,
+# mirroring how real companies keep transactional and analytical
+# systems apart (OLTP optimized for writes, warehouse for fast reads).
+# =====================================================================
 
 import os
 import logging
@@ -14,6 +25,7 @@ logging.basicConfig(
 
 
 def get_oltp_connection():
+    """Connects to the SOURCE database (football_oltp) -- where data is read FROM."""
     return psycopg2.connect(
         host=os.getenv("DB_HOST"), port=os.getenv("DB_PORT"),
         dbname=os.getenv("DB_NAME"), user=os.getenv("DB_USER"),
@@ -22,6 +34,7 @@ def get_oltp_connection():
 
 
 def get_dwh_connection():
+    """Connects to the TARGET database (football_dwh) -- where data is written TO."""
     return psycopg2.connect(
         host=os.getenv("DB_HOST"), port=os.getenv("DB_PORT"),
         dbname=os.getenv("DWH_DB_NAME"), user=os.getenv("DB_USER"),
@@ -30,6 +43,8 @@ def get_dwh_connection():
 
 
 def get_or_create_dim_team(dwh_cur, cache, team_name, league_name, country_code):
+    """Same get-or-create pattern as load.py, but for the warehouse's
+    dim_team table -- looks up first, only inserts if genuinely new."""
     key = (team_name, league_name)
     if key in cache:
         return cache[key]
@@ -49,6 +64,7 @@ def get_or_create_dim_team(dwh_cur, cache, team_name, league_name, country_code)
 
 
 def get_or_create_dim_season(dwh_cur, cache, season_label, start_date, end_date):
+    """Same pattern, for dim_season."""
     if season_label in cache:
         return cache[season_label]
     dwh_cur.execute("SELECT season_key FROM dim_season WHERE season_label=%s", (season_label,))
@@ -66,6 +82,7 @@ def get_or_create_dim_season(dwh_cur, cache, season_label, start_date, end_date)
 
 
 def get_or_create_dim_player(dwh_cur, cache, player_name, role):
+    """Same pattern, for dim_player -- shared by both scorers and goalkeepers."""
     key = (player_name, role)
     if key in cache:
         return cache[key]
@@ -85,10 +102,17 @@ def get_or_create_dim_player(dwh_cur, cache, player_name, role):
 
 
 def get_date_key(stats_date):
+    """Converts a date into the integer format used as dim_date's
+    primary key, e.g. 2022-11-11 -> 20221111."""
     return int(stats_date.strftime("%Y%m%d"))
 
 
 def run_warehouse_etl():
+    """
+    Main ETL function: pulls every team-season stat from OLTP (joined
+    with its league, season, scorer, and goalkeeper), then writes it
+    into the warehouse's fact table + dimension tables.
+    """
     oltp_conn = get_oltp_connection()
     dwh_conn = get_dwh_connection()
     oltp_cur = oltp_conn.cursor()
@@ -98,6 +122,8 @@ def run_warehouse_etl():
     inserted, skipped = 0, 0
 
     try:
+        # Single query pulls everything needed in one round-trip,
+        # rather than looping and querying OLTP per-row
         oltp_cur.execute("""
             SELECT
                 tss.stat_id, t.team_name, l.league_name, l.country_code,
@@ -111,6 +137,13 @@ def run_warehouse_etl():
             JOIN teams t ON tss.team_id = t.team_id
             JOIN leagues l ON t.league_id = l.league_id
             JOIN seasons s ON tss.season_id = s.season_id
+            -- LATERAL JOINs deliberately pick just ONE scorer/goalkeeper
+            -- row per stat_id (ORDER BY id LIMIT 1). A plain LEFT JOIN
+            -- here caused a real bug: if a stat_id ever had more than
+            -- one matching scorer/keeper row, the join would duplicate
+            -- that stat row for every match (JOIN fan-out), silently
+            -- doubling the row count. LATERAL guarantees exactly one
+            -- match per row regardless of what's underneath.
             LEFT JOIN LATERAL (
                 SELECT player_id FROM team_top_scorer
                 WHERE stat_id = tss.stat_id ORDER BY id LIMIT 1
@@ -131,6 +164,7 @@ def run_warehouse_etl():
              pts, pts_per_mp, xg, xga, xgd, xgd_90, attendance,
              scorer_name, scorer_role, keeper_name, keeper_role) = row
 
+            # Resolve (or create) each dimension key for this row
             team_key = get_or_create_dim_team(dwh_cur, team_cache, team_name, league_name, country_code)
             season_key = get_or_create_dim_season(dwh_cur, season_cache, season_label, start_date, end_date)
             date_key = get_date_key(stats_date)
@@ -140,6 +174,8 @@ def run_warehouse_etl():
             goalkeeper_key = (get_or_create_dim_player(dwh_cur, player_cache, keeper_name, keeper_role)
                                if keeper_name else None)
 
+            # Idempotency check: skip this row if it's already in the
+            # warehouse (same team+season+date combination)
             dwh_cur.execute("""
                 SELECT fact_id FROM fact_team_season_performance
                 WHERE team_key=%s AND season_key=%s AND date_key=%s
@@ -148,6 +184,7 @@ def run_warehouse_etl():
                 skipped += 1
                 continue
 
+            # New fact row -- insert into the warehouse
             dwh_cur.execute("""
                 INSERT INTO fact_team_season_performance
                 (team_key, season_key, date_key, top_scorer_key, goalkeeper_key,
@@ -164,6 +201,8 @@ def run_warehouse_etl():
         print(f"Warehouse ETL complete: {inserted} inserted, {skipped} skipped")
 
     except Exception as e:
+        # Same all-or-nothing safety as load.py -- undo the whole
+        # batch if anything goes wrong partway through
         dwh_conn.rollback()
         logging.error(f"Warehouse ETL failed, rolled back: {e}")
         raise
@@ -174,6 +213,6 @@ def run_warehouse_etl():
         dwh_conn.close()
 
 
+# Entry point: python -m pipeline.warehouse_load
 if __name__ == "__main__":
-
     run_warehouse_etl()

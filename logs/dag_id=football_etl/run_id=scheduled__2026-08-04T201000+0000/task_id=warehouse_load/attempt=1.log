@@ -1,0 +1,12 @@
+[2026-08-04T20:12:04.761+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-08-04T20:12:04.799+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-08-04T20:10:00+00:00 [queued]>
+[2026-08-04T20:12:04.809+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-08-04T20:10:00+00:00 [queued]>
+[2026-08-04T20:12:04.810+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-08-04T20:12:04.825+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): warehouse_load> on 2026-08-04 20:10:00+00:00
+[2026-08-04T20:12:04.833+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=944) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-08-04T20:12:04.832+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'warehouse_load', 'scheduled__2026-08-04T20:10:00+00:00', '--job-id', '1406', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmp04m70wg0']
+[2026-08-04T20:12:04.835+0000] {standard_task_runner.py:64} INFO - Started process 945 to run task
+[2026-08-04T20:12:04.836+0000] {standard_task_runner.py:91} INFO - Job 1406: Subtask warehouse_load
+[2026-08-04T20:12:04.910+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.warehouse_load scheduled__2026-08-04T20:10:00+00:00 [running]> on host b478b38d86c0
+[2026-08-04T20:12:05.032+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='warehouse_load' AIRFLOW_CTX_EXECUTION_DATE='2026-08-04T20:10:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-08-04T20:10:00+00:00'
+[2026-08-04T20:12:05.034+0000] {taskinstance.py:430} INFO - ::endgroup::

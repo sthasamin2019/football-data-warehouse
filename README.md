@@ -19,13 +19,12 @@ The pipeline consists of five stages:
 ## Data Flow
 
 ```
-              +---------------+
-              |    Raw CSV    |
-              | (98 rows)     |
-              +-------+-------+
-                      |
-                      v
-
++---------------+
+|    Raw CSV    |
+| (98 rows)     |
++-------+-------+
+|
+v
 +--------------------------------+
 | EXTRACT                        |
 | - Reads CSV, validates columns |
@@ -77,6 +76,7 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 - Re-running the pipeline grows the dataset incrementally (a configurable batch size per run)
 - No duplicate or repeated synthetic rows across runs
 - The current baseline dataset is ~14,000+ rows, with each subsequent run adding more
+- Each row in `team_season_stats` is tagged with a `source` column (`real` or `synthetic`), making it easy to distinguish the  original   98 rows from generated data.
 
 ## Orchestration & Visualization
 - **Airflow** — orchestrates the full pipeline daily, with automatic retries (DAG: \`football_etl\`)
@@ -132,3 +132,4 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 
 ## Demo
 [https://www.loom.com/share/2add7240dbe24864bb209f1df0b65ad5]
+
