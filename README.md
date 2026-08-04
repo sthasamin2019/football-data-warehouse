@@ -17,6 +17,7 @@ The pipeline consists of five stages:
 5. **Warehouse Load** — reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
 
 ## Data Flow
+
 \`\`\`
                   +---------------+
                   |    Raw CSV    |
@@ -25,40 +26,40 @@ The pipeline consists of five stages:
                           |
                           v
 +------------------------------------------------------+
-|                       EXTRACT                        |
+|                       EXTRACT                         |
 |  - Reads CSV, validates columns                      |
-|  - Logs row count                                    |
-+-------------------------+----------------------------+
+|  - Logs row count                                     |
++-------------------------+------------------------------+
                           |
                           v
 +------------------------------------------------------+
-|                      TRANSFORM                       |
-|  - Cleans scorer/goalkeeper fields                   |
-|  - Maps country -> league                            |
-|  - Faker: generates new incremental batch            |
-|    (tracked via watermark)                           |
-+-------------------------+----------------------------+
+|                      TRANSFORM                         |
+|  - Cleans scorer/goalkeeper fields                    |
+|  - Maps country -> league                              |
+|  - Faker: generates new incremental batch              |
+|    (tracked via watermark)                             |
++-------------------------+------------------------------+
                           |
                           v
 +------------------------------------------------------+
-|                    QUALITY GATE                      |
-|  - Null, range, consistency, uniqueness, referential |
-|  - Fail = abort load, no bad data persisted          |
-+-------------------------+----------------------------+
+|                    QUALITY GATE                         |
+|  - Null, range, consistency, uniqueness, referential   |
+|  - Fail = abort load, no bad data persisted             |
++-------------------------+------------------------------+
                           |
                           v
 +------------------------------------------------------+
-|                     LOAD (OLTP)                      |
-|  - Idempotent upserts                                |
-|  - 7 normalized tables (leagues, teams, players...)  |
-+-------------------------+----------------------------+
+|                     LOAD (OLTP)                          |
+|  - Idempotent upserts                                    |
+|  - 7 normalized tables (leagues, teams, players...)      |
++-------------------------+------------------------------+
                           |
                           v
 +------------------------------------------------------+
-|                   WAREHOUSE LOAD                     |
-|  - Star schema: 1 fact table + 4 dimensions          |
-|    (team, season, player, date)                      |
-+-------------------------+----------------------------+
+|                   WAREHOUSE LOAD                          |
+|  - Star schema: 1 fact table + 4 dimensions               |
+|    (team, season, player, date)                           |
++-------------------------+------------------------------+
                           |
                           v
                   +---------------+
@@ -67,7 +68,7 @@ The pipeline consists of five stages:
                   +---------------+
 
   Orchestrated end-to-end by Airflow (daily, 3 retries)
-  \`\`\`
+\`\`\`
 
 ## Incremental Watermark Loading
 
