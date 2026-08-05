@@ -18,22 +18,20 @@ The pipeline consists of five stages:
 
 ## Data Flow
 
-
 ```mermaid
 flowchart TD
-    A[Raw CSV<br/>98 rows] --> B[Extract]
-    B --> C[Transform<br/>+ Faker incremental batch]
-    C --> D[Quality gate<br/>5 checks]
-    D --> E[Load OLTP<br/>idempotent upsert]
-    E --> F[Warehouse load<br/>star schema]
-    F --> G[Metabase<br/>dashboards]
-    H[Airflow<br/>daily, 3 retries] -.orchestrates.-> B
-    H -.orchestrates.-> C
-    H -.orchestrates.-> D
-    H -.orchestrates.-> E
-    H -.orchestrates.-> F
+    A[Raw CSV - 98 rows] --> B[Extract]
+    B --> C[Transform - Faker incremental batch]
+    C --> D[Quality gate - 5 checks]
+    D --> E[Load OLTP - idempotent upsert]
+    E --> F[Warehouse load - star schema]
+    F --> G[Metabase - dashboards]
+    H[Airflow - daily, 3 retries] -.-> B
+    H -.-> C
+    H -.-> D
+    H -.-> E
+    H -.-> F
 ```
-
 ## Incremental Watermark Loading
 
 A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off — rather than regenerating the full dataset every time. This means:
