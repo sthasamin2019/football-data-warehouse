@@ -18,57 +18,22 @@ The pipeline consists of five stages:
 
 ## Data Flow
 
-```
-+---------------+
-|    Raw CSV    |
-| (98 rows)     |
-+-------+-------+
-|
-v
-+--------------------------------+
-| EXTRACT                        |
-| - Reads CSV, validates columns |
-| - Logs row count               |
-+-------------------------+------+
-|
-v
-+------------------------------------------+
-| TRANSFORM                                 |
-| - Cleans scorer/goalkeeper fields         |
-| - Maps country -> league                  |
-| - Faker: generates new incremental batch  |
-| (tracked via watermark)                   |
-+-------------------------+-----------------+
-|
-v
-+-----------------------------------------------------+
-| QUALITY GATE                                        |
-| - Null, range, consistency, uniqueness, referential |
-| - Fail = abort load, no bad data persisted          |
-+-------------------------+---------------------------+
-|
-v
-+----------------------------------------------------+
-| LOAD (OLTP)                                        |
-| - Idempotent upserts                               |
-| - 7 normalized tables (leagues, teams, players...) |
-+-------------------------+--------------------------+
-|
-v
-+--------------------------------------------+
-| WAREHOUSE LOAD                             |
-| - Star schema: 1 fact table + 4 dimensions |
-| (team, season, player, date)               |
-+-------------------------+-------------------+
-|
-v
-+------------+
-| Metabase   |
-| Dashboards |
-+------------+
-Orchestrated end-to-end by Airflow (daily, 3 retries)
 
+```mermaid
+flowchart TD
+    A[Raw CSV<br/>98 rows] --> B[Extract]
+    B --> C[Transform<br/>+ Faker incremental batch]
+    C --> D[Quality gate<br/>5 checks]
+    D --> E[Load OLTP<br/>idempotent upsert]
+    E --> F[Warehouse load<br/>star schema]
+    F --> G[Metabase<br/>dashboards]
+    H[Airflow<br/>daily, 3 retries] -.orchestrates.-> B
+    H -.orchestrates.-> C
+    H -.orchestrates.-> D
+    H -.orchestrates.-> E
+    H -.orchestrates.-> F
 ```
+
 ## Incremental Watermark Loading
 
 A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off — rather than regenerating the full dataset every time. This means:

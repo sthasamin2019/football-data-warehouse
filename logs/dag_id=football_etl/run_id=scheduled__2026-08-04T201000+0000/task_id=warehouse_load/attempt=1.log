@@ -10,3 +10,12 @@
 [2026-08-04T20:12:04.910+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.warehouse_load scheduled__2026-08-04T20:10:00+00:00 [running]> on host b478b38d86c0
 [2026-08-04T20:12:05.032+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='warehouse_load' AIRFLOW_CTX_EXECUTION_DATE='2026-08-04T20:10:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-08-04T20:10:00+00:00'
 [2026-08-04T20:12:05.034+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-08-04T20:12:23.775+0000] {warehouse_load.py:159} INFO - Fetched 16098 rows from OLTP for warehouse load
+[2026-08-04T20:12:37.128+0000] {warehouse_load.py:200} INFO - Warehouse ETL complete: 0 inserted, 16098 skipped
+[2026-08-04T20:12:37.129+0000] {logging_mixin.py:188} INFO - Warehouse ETL complete: 0 inserted, 16098 skipped
+[2026-08-04T20:12:37.156+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-08-04T20:12:37.157+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-08-04T20:12:37.173+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=football_etl, task_id=warehouse_load, run_id=scheduled__2026-08-04T20:10:00+00:00, execution_date=20260804T201000, start_date=20260804T201204, end_date=20260804T201237
+[2026-08-04T20:12:37.216+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-08-04T20:12:37.246+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-08-04T20:12:37.249+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
