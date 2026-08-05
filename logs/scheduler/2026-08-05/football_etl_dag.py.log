@@ -543,3 +543,129 @@
 [2026-08-05T14:36:49.482+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:36:49.482+0000] {dag.py:3089} INFO - Sync 1 DAGs
 [2026-08-05T14:36:49.509+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:36:49.508+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:36:00+00:00, run_after=2026-08-05 14:38:00+00:00
 [2026-08-05T14:36:49.531+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.118 seconds
+[2026-08-05T14:37:19.756+0000] {processor.py:161} INFO - Started process (PID=388) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:37:19.758+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:37:19.761+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:37:19.760+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:37:19.786+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:37:19.821+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:37:19.820+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:37:19.848+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:37:19.848+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:36:00+00:00, run_after=2026-08-05 14:38:00+00:00
+[2026-08-05T14:37:19.869+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.120 seconds
+[2026-08-05T14:37:49.997+0000] {processor.py:161} INFO - Started process (PID=393) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:37:49.999+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:37:50.002+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:37:50.002+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:37:50.033+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:37:50.073+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:37:50.073+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:37:50.100+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:37:50.100+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:36:00+00:00, run_after=2026-08-05 14:38:00+00:00
+[2026-08-05T14:37:50.122+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.133 seconds
+[2026-08-05T14:38:20.276+0000] {processor.py:161} INFO - Started process (PID=406) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:38:20.278+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:38:20.281+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:38:20.281+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:38:20.309+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:38:20.354+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:38:20.353+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:38:20.387+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:38:20.387+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:38:00+00:00, run_after=2026-08-05 14:40:00+00:00
+[2026-08-05T14:38:20.415+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.146 seconds
+[2026-08-05T14:38:50.547+0000] {processor.py:161} INFO - Started process (PID=411) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:38:50.550+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:38:50.556+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:38:50.555+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:38:50.612+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:38:50.681+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:38:50.681+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:38:50.725+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:38:50.725+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:38:00+00:00, run_after=2026-08-05 14:40:00+00:00
+[2026-08-05T14:38:50.755+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.224 seconds
+[2026-08-05T14:39:20.908+0000] {processor.py:161} INFO - Started process (PID=416) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:39:20.910+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:39:20.913+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:39:20.913+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:39:20.939+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:39:20.979+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:39:20.979+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:39:21.006+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:39:21.005+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:38:00+00:00, run_after=2026-08-05 14:40:00+00:00
+[2026-08-05T14:39:21.027+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.128 seconds
+[2026-08-05T14:39:51.200+0000] {processor.py:161} INFO - Started process (PID=421) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:39:51.202+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:39:51.205+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:39:51.204+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:39:51.231+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:39:51.278+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:39:51.278+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:39:51.312+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:39:51.312+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:38:00+00:00, run_after=2026-08-05 14:40:00+00:00
+[2026-08-05T14:39:51.334+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.141 seconds
+[2026-08-05T14:40:21.451+0000] {processor.py:161} INFO - Started process (PID=434) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:40:21.452+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:40:21.455+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:40:21.454+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:40:21.479+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:40:21.516+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:40:21.516+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:40:21.543+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:40:21.543+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:40:00+00:00, run_after=2026-08-05 14:42:00+00:00
+[2026-08-05T14:40:21.563+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.120 seconds
+[2026-08-05T14:40:51.729+0000] {processor.py:161} INFO - Started process (PID=439) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:40:51.731+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:40:51.734+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:40:51.734+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:40:51.762+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:40:51.800+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:40:51.800+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:40:51.828+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:40:51.828+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:40:00+00:00, run_after=2026-08-05 14:42:00+00:00
+[2026-08-05T14:40:51.849+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.128 seconds
+[2026-08-05T14:41:22.026+0000] {processor.py:161} INFO - Started process (PID=444) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:41:22.028+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:41:22.031+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:41:22.031+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:41:22.055+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:41:22.093+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:41:22.093+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:41:22.120+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:41:22.120+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:40:00+00:00, run_after=2026-08-05 14:42:00+00:00
+[2026-08-05T14:41:22.140+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.122 seconds
+[2026-08-05T14:41:52.391+0000] {processor.py:161} INFO - Started process (PID=449) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:41:52.393+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:41:52.396+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:41:52.396+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:41:52.418+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:41:52.455+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:41:52.454+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:41:52.481+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:41:52.480+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:40:00+00:00, run_after=2026-08-05 14:42:00+00:00
+[2026-08-05T14:41:52.502+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.117 seconds
+[2026-08-05T14:42:22.580+0000] {processor.py:161} INFO - Started process (PID=462) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:42:22.581+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:42:22.584+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:42:22.584+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:42:22.605+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:42:22.643+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:42:22.643+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:42:22.670+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:42:22.669+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:42:00+00:00, run_after=2026-08-05 14:44:00+00:00
+[2026-08-05T14:42:22.691+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.118 seconds
+[2026-08-05T14:42:52.911+0000] {processor.py:161} INFO - Started process (PID=467) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:42:52.912+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:42:52.915+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:42:52.915+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:42:52.941+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:42:52.977+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:42:52.977+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:42:53.008+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:42:53.008+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:42:00+00:00, run_after=2026-08-05 14:44:00+00:00
+[2026-08-05T14:42:53.029+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.126 seconds
+[2026-08-05T14:43:23.154+0000] {processor.py:161} INFO - Started process (PID=472) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:43:23.158+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:43:23.164+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:43:23.163+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:43:23.193+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:43:23.234+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:43:23.234+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:43:23.265+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:43:23.265+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:42:00+00:00, run_after=2026-08-05 14:44:00+00:00
+[2026-08-05T14:43:23.290+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.148 seconds
+[2026-08-05T14:43:53.532+0000] {processor.py:161} INFO - Started process (PID=477) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:43:53.534+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:43:53.537+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:43:53.536+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:43:53.573+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:43:53.615+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:43:53.615+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:43:53.643+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:43:53.643+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:42:00+00:00, run_after=2026-08-05 14:44:00+00:00
+[2026-08-05T14:43:53.686+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.161 seconds
+[2026-08-05T14:44:23.771+0000] {processor.py:161} INFO - Started process (PID=490) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:44:23.773+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:44:23.777+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:44:23.777+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:44:23.811+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:44:23.851+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:44:23.851+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:44:23.881+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:44:23.880+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:44:00+00:00, run_after=2026-08-05 14:46:00+00:00
+[2026-08-05T14:44:23.902+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.138 seconds
+[2026-08-05T14:44:54.097+0000] {processor.py:161} INFO - Started process (PID=495) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:44:54.098+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:44:54.101+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:44:54.101+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:44:54.128+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:44:54.165+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:44:54.164+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:44:54.196+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:44:54.196+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:44:00+00:00, run_after=2026-08-05 14:46:00+00:00
+[2026-08-05T14:44:54.220+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.131 seconds
+[2026-08-05T14:45:24.335+0000] {processor.py:161} INFO - Started process (PID=500) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:45:24.336+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:45:24.339+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:45:24.339+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:45:24.361+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:45:24.403+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:45:24.403+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:45:24.430+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:45:24.430+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:44:00+00:00, run_after=2026-08-05 14:46:00+00:00
+[2026-08-05T14:45:24.453+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.125 seconds
+[2026-08-05T14:45:54.683+0000] {processor.py:161} INFO - Started process (PID=505) to work on /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:45:54.684+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/football_etl_dag.py for tasks to queue
+[2026-08-05T14:45:54.688+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:45:54.687+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:45:54.721+0000] {processor.py:840} INFO - DAG(s) 'football_etl' retrieved from /opt/airflow/dags/football_etl_dag.py
+[2026-08-05T14:45:54.761+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:45:54.760+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-08-05T14:45:54.788+0000] {logging_mixin.py:188} INFO - [2026-08-05T14:45:54.788+0000] {dag.py:3947} INFO - Setting next_dagrun for football_etl to 2026-08-05 14:44:00+00:00, run_after=2026-08-05 14:46:00+00:00
+[2026-08-05T14:45:54.814+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/football_etl_dag.py took 0.138 seconds

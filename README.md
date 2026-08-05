@@ -42,9 +42,9 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 - Each row in `team_season_stats` is tagged with a `source` column (`real` or `synthetic`), making it easy to distinguish the  original   98 rows from generated data.
 
 ## Orchestration & Visualization
-- **Airflow** ??? orchestrates the full pipeline daily, with automatic retries (DAG: \`football_etl\`)
-- **Metabase** ??? dashboards built on top of the warehouse for analytics
-- **DBeaver** ??? used for inspecting and querying both databases
+- **Airflow** - orchestrates the full pipeline daily, with automatic retries (DAG: \`football_etl\`)
+- **Metabase** - dashboards built on top of the warehouse for analytics
+- **DBeaver** - used for inspecting and querying both databases
 
 ## Project Structure
 - \`pipeline/\` - extract, transform, quality, load, warehouse_load, generate_synthetic
@@ -90,7 +90,7 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 - DBeaver (for database inspection)
 
 ## Future Improvements
-- Incremental extraction on the real-data side (currently only synthetic data is incremental; the source CSV is small and static)
+- Incremental extraction on the real-data side (currently only synthetic data is incremental the source CSV is small and static)
 - CI pipeline (GitHub Actions) to run the test suite automatically on every push
 
 ## Demo
