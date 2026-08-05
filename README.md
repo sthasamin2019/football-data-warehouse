@@ -20,13 +20,13 @@ The pipeline consists of five stages:
 
 ```mermaid
 flowchart TD
-    A[Raw CSV] --> B[Extract]
-    B --> C[Transform + Faker]
-    C --> D[Quality gate]
-    D --> E[Load OLTP]
-    E --> F[Warehouse load]
-    F --> G[Metabase]
-    H[Airflow] -.-> B
+    A["Raw CSV<br/>98 real rows"] --> B["Extract<br/>validate + log"]
+    B --> C["Transform<br/>clean + Faker batch"]
+    C --> D["Quality gate<br/>5 checks, fail aborts load"]
+    D --> E["Load OLTP<br/>idempotent upsert"]
+    E --> F["Warehouse load<br/>star schema"]
+    F --> G["Metabase<br/>dashboards"]
+    H["Airflow<br/>daily, 3 retries"] -.-> B
     H -.-> C
     H -.-> D
     H -.-> E
