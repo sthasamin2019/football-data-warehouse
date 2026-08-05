@@ -1,32 +1,32 @@
 # Football Data Warehouse Pipeline
 
-An end-to-end data engineering pipeline that extracts European football league standings, transforms and validates the data, incrementally augments it with Faker-generated synthetic records, loads it into a normalized OLTP database, and builds a star-schema warehouse for analytics — orchestrated with Airflow and visualized in Metabase.
+An end-to-end data engineering pipeline that extracts European football league standings, transforms and validates the data, incrementally augments it with Faker-generated synthetic records, loads it into a normalized OLTP database, and builds a star-schema warehouse for analytics ??? orchestrated with Airflow and visualized in Metabase.
 
 ## Architecture
 
 The pipeline consists of five stages:
 
-1. **Extract** — reads the raw standings CSV, validates expected columns, logs row counts
+1. **Extract** ??? reads the raw standings CSV, validates expected columns, logs row counts
 
-2. **Transform** — cleans messy scorer/goalkeeper fields, maps country codes to league names, and generates a new batch of synthetic rows with Faker each run (incremental, watermark-tracked — see below)
+2. **Transform** ??? cleans messy scorer/goalkeeper fields, maps country codes to league names, and generates a new batch of synthetic rows with Faker each run (incremental, watermark-tracked ??? see below)
 
-3. **Quality Gate** — 5 automated checks: null, range, consistency, uniqueness, referential integrity. A failed check aborts the load — bad data never reaches the database
+3. **Quality Gate** ??? 5 automated checks: null, range, consistency, uniqueness, referential integrity. A failed check aborts the load ??? bad data never reaches the database
 
-4. **Load (OLTP)** — idempotent upserts into a normalized PostgreSQL schema. Safe to re-run without creating duplicates
+4. **Load (OLTP)** ??? idempotent upserts into a normalized PostgreSQL schema. Safe to re-run without creating duplicates
 
-5. **Warehouse Load** — reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
+5. **Warehouse Load** ??? reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
 
 ## Data Flow
 
 ```mermaid
 flowchart TD
-    A[Raw CSV - 98 rows] --> B[Extract]
-    B --> C[Transform - Faker incremental batch]
-    C --> D[Quality gate - 5 checks]
-    D --> E[Load OLTP - idempotent upsert]
-    E --> F[Warehouse load - star schema]
-    F --> G[Metabase - dashboards]
-    H[Airflow - daily, 3 retries] -.-> B
+    A[Raw CSV] --> B[Extract]
+    B --> C[Transform + Faker]
+    C --> D[Quality gate]
+    D --> E[Load OLTP]
+    E --> F[Warehouse load]
+    F --> G[Metabase]
+    H[Airflow] -.-> B
     H -.-> C
     H -.-> D
     H -.-> E
@@ -34,7 +34,7 @@ flowchart TD
 ```
 ## Incremental Watermark Loading
 
-A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off — rather than regenerating the full dataset every time. This means:
+A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off ??? rather than regenerating the full dataset every time. This means:
 
 - Re-running the pipeline grows the dataset incrementally (a configurable batch size per run)
 - No duplicate or repeated synthetic rows across runs
@@ -42,9 +42,9 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 - Each row in `team_season_stats` is tagged with a `source` column (`real` or `synthetic`), making it easy to distinguish the  original   98 rows from generated data.
 
 ## Orchestration & Visualization
-- **Airflow** — orchestrates the full pipeline daily, with automatic retries (DAG: \`football_etl\`)
-- **Metabase** — dashboards built on top of the warehouse for analytics
-- **DBeaver** — used for inspecting and querying both databases
+- **Airflow** ??? orchestrates the full pipeline daily, with automatic retries (DAG: \`football_etl\`)
+- **Metabase** ??? dashboards built on top of the warehouse for analytics
+- **DBeaver** ??? used for inspecting and querying both databases
 
 ## Project Structure
 - \`pipeline/\` - extract, transform, quality, load, warehouse_load, generate_synthetic
@@ -95,4 +95,5 @@ A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumul
 
 ## Demo
 [https://www.loom.com/share/2add7240dbe24864bb209f1df0b65ad5]
+
 
