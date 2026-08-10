@@ -1,6 +1,6 @@
 # Football Data Warehouse Pipeline
 
-An end-to-end data engineering pipeline that extracts European football league standings, transforms and validates the data, incrementally augments it with Faker-generated synthetic records, loads it into a normalized OLTP database, and builds a star-schema warehouse for analytics ??? orchestrated with Airflow and visualized in Metabase.
+An end-to-end data engineering pipeline that extracts European football league standings, transforms and validates the data, incrementally augments it with Faker-generated synthetic records, loads it into a normalized OLTP database, and builds a star-schema warehouse for analytics  orchestrated with Airflow and visualized in Metabase.
 
 ## Architecture
 
@@ -8,9 +8,9 @@ The pipeline consists of five stages:
 
 1. **Extract** - reads the raw standings CSV, validates expected columns, logs row counts
 
-2. **Transform** -cleans messy scorer/goalkeeper fields, maps country codes to league names, and generates a new batch of synthetic rows with Faker each run (incremental, watermark-tracked ??? see below)
+2. **Transform** -cleans messy scorer/goalkeeper fields, maps country codes to league names, and generates a new batch of synthetic rows with Faker each run (incremental, watermark-tracked  see below)
 
-3. **Quality Gate** - 5 automated checks: null, range, consistency, uniqueness, referential integrity. A failed check aborts the load ??? bad data never reaches the database
+3. **Quality Gate** - 5 automated checks: null, range, consistency, uniqueness, referential integrity. A failed check aborts the load  bad data never reaches the database
 
 4. **Load (OLTP)** - idempotent upserts into a normalized PostgreSQL schema. Safe to re-run without creating duplicates
 
@@ -34,7 +34,7 @@ flowchart TD
 ```
 ## Incremental Watermark Loading
 
-A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off ??? rather than regenerating the full dataset every time. This means:
+A \`pipeline_watermark\` table tracks the last successful run's timestamp, cumulative row count, and synthetic data seed position. Each pipeline run reads this watermark and generates only a **new batch** of synthetic rows continuing from where the last run left off  rather than regenerating the full dataset every time. This means:
 
 - Re-running the pipeline grows the dataset incrementally (a configurable batch size per run)
 - No duplicate or repeated synthetic rows across runs
