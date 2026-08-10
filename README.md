@@ -6,15 +6,15 @@ An end-to-end data engineering pipeline that extracts European football league s
 
 The pipeline consists of five stages:
 
-1. **Extract** ??? reads the raw standings CSV, validates expected columns, logs row counts
+1. **Extract** - reads the raw standings CSV, validates expected columns, logs row counts
 
-2. **Transform** ??? cleans messy scorer/goalkeeper fields, maps country codes to league names, and generates a new batch of synthetic rows with Faker each run (incremental, watermark-tracked ??? see below)
+2. **Transform** -cleans messy scorer/goalkeeper fields, maps country codes to league names, and generates a new batch of synthetic rows with Faker each run (incremental, watermark-tracked ??? see below)
 
-3. **Quality Gate** ??? 5 automated checks: null, range, consistency, uniqueness, referential integrity. A failed check aborts the load ??? bad data never reaches the database
+3. **Quality Gate** - 5 automated checks: null, range, consistency, uniqueness, referential integrity. A failed check aborts the load ??? bad data never reaches the database
 
-4. **Load (OLTP)** ??? idempotent upserts into a normalized PostgreSQL schema. Safe to re-run without creating duplicates
+4. **Load (OLTP)** - idempotent upserts into a normalized PostgreSQL schema. Safe to re-run without creating duplicates
 
-5. **Warehouse Load** ??? reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
+5. **Warehouse Load** -reads from OLTP, populates a star schema: one fact table, four dimensions (team, season, player, date)
 
 ## Data Flow
 

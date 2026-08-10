@@ -1,0 +1,30 @@
+[2026-08-07T15:48:04.219+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-08-07T15:48:04.278+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.transform_quality_load scheduled__2026-08-07T15:46:00+00:00 [queued]>
+[2026-08-07T15:48:04.290+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.transform_quality_load scheduled__2026-08-07T15:46:00+00:00 [queued]>
+[2026-08-07T15:48:04.291+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-08-07T15:48:04.307+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): transform_quality_load> on 2026-08-07 15:46:00+00:00
+[2026-08-07T15:48:04.319+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'transform_quality_load', 'scheduled__2026-08-07T15:46:00+00:00', '--job-id', '1569', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmp6xwcvoef']
+[2026-08-07T15:48:04.323+0000] {standard_task_runner.py:91} INFO - Job 1569: Subtask transform_quality_load
+[2026-08-07T15:48:04.323+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=457) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-08-07T15:48:04.324+0000] {standard_task_runner.py:64} INFO - Started process 458 to run task
+[2026-08-07T15:48:04.410+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.transform_quality_load scheduled__2026-08-07T15:46:00+00:00 [running]> on host b478b38d86c0
+[2026-08-07T15:48:04.537+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='transform_quality_load' AIRFLOW_CTX_EXECUTION_DATE='2026-08-07T15:46:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-08-07T15:46:00+00:00'
+[2026-08-07T15:48:04.539+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-08-07T15:48:05.322+0000] {extract.py:57} INFO - Extracted 98 rows from data/raw/standings_2022_23.csv
+[2026-08-07T15:48:05.346+0000] {transform.py:62} INFO - Goalkeeper field may contain multiple names: 'Pepe Reina GerÃ³nimo Rulli'
+[2026-08-07T15:48:05.642+0000] {generate_synthetic.py:111} INFO - Generated 500 synthetic rows (index 0 to 499)
+[2026-08-07T15:48:05.645+0000] {transform.py:157} INFO - Transformed 98 real rows + 500 new synthetic rows into 98 teams, 598 total stat rows this run
+[2026-08-07T15:48:05.652+0000] {quality.py:122} INFO - [PASS] null_check: No nulls in required fields
+[2026-08-07T15:48:05.653+0000] {quality.py:122} INFO - [PASS] range_check: All values within expected ranges
+[2026-08-07T15:48:05.654+0000] {quality.py:122} INFO - [PASS] consistency_check: All rows internally consistent
+[2026-08-07T15:48:05.654+0000] {quality.py:122} INFO - [PASS] uniqueness_check: No duplicate team/date rows
+[2026-08-07T15:48:05.655+0000] {quality.py:122} INFO - [PASS] league_reference_check: All leagues recognized
+[2026-08-07T15:48:05.656+0000] {quality.py:130} INFO - All 5 quality checks passed
+[2026-08-07T15:48:06.177+0000] {load.py:216} INFO - Load complete: 0 new rows inserted, 598 rows skipped (already existed)
+[2026-08-07T15:48:06.178+0000] {logging_mixin.py:188} INFO - Load complete: 0 inserted, 598 skipped
+[2026-08-07T15:48:06.179+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-08-07T15:48:06.180+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-08-07T15:48:06.197+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=football_etl, task_id=transform_quality_load, run_id=scheduled__2026-08-07T15:46:00+00:00, execution_date=20260807T154600, start_date=20260807T154804, end_date=20260807T154806
+[2026-08-07T15:48:06.228+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-08-07T15:48:06.255+0000] {taskinstance.py:3503} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-08-07T15:48:06.258+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

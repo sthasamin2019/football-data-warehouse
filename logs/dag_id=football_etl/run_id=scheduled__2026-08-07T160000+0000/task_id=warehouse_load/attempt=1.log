@@ -1,0 +1,21 @@
+[2026-08-07T16:02:05.313+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-08-07T16:02:05.367+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-08-07T16:00:00+00:00 [queued]>
+[2026-08-07T16:02:05.382+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-08-07T16:00:00+00:00 [queued]>
+[2026-08-07T16:02:05.383+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 4
+[2026-08-07T16:02:05.398+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): warehouse_load> on 2026-08-07 16:00:00+00:00
+[2026-08-07T16:02:05.407+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=651) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-08-07T16:02:05.407+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'warehouse_load', 'scheduled__2026-08-07T16:00:00+00:00', '--job-id', '1591', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmp020d55cn']
+[2026-08-07T16:02:05.410+0000] {standard_task_runner.py:64} INFO - Started process 652 to run task
+[2026-08-07T16:02:05.411+0000] {standard_task_runner.py:91} INFO - Job 1591: Subtask warehouse_load
+[2026-08-07T16:02:05.485+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.warehouse_load scheduled__2026-08-07T16:00:00+00:00 [running]> on host b478b38d86c0
+[2026-08-07T16:02:05.589+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='warehouse_load' AIRFLOW_CTX_EXECUTION_DATE='2026-08-07T16:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-08-07T16:00:00+00:00'
+[2026-08-07T16:02:05.591+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-08-07T16:02:25.684+0000] {warehouse_load.py:159} INFO - Fetched 16098 rows from OLTP for warehouse load
+[2026-08-07T16:02:37.699+0000] {warehouse_load.py:200} INFO - Warehouse ETL complete: 0 inserted, 16098 skipped
+[2026-08-07T16:02:37.700+0000] {logging_mixin.py:188} INFO - Warehouse ETL complete: 0 inserted, 16098 skipped
+[2026-08-07T16:02:37.714+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-08-07T16:02:37.715+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-08-07T16:02:37.727+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=football_etl, task_id=warehouse_load, run_id=scheduled__2026-08-07T16:00:00+00:00, execution_date=20260807T160000, start_date=20260807T160205, end_date=20260807T160237
+[2026-08-07T16:02:37.759+0000] {local_task_job_runner.py:243} INFO - Task exited with return code 0
+[2026-08-07T16:02:37.781+0000] {taskinstance.py:3503} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-08-07T16:02:37.784+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
