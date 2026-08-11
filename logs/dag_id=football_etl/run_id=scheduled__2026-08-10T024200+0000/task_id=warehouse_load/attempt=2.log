@@ -1,0 +1,20 @@
+[2026-08-10T03:48:07.356+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-08-10T03:48:07.870+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-08-10T02:42:00+00:00 [queued]>
+[2026-08-10T03:48:08.007+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: football_etl.warehouse_load scheduled__2026-08-10T02:42:00+00:00 [queued]>
+[2026-08-10T03:48:08.012+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 4
+[2026-08-10T03:48:08.124+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): warehouse_load> on 2026-08-10 02:42:00+00:00
+[2026-08-10T03:48:08.236+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:62 DeprecationWarning: This process (pid=520) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-08-10T03:48:08.239+0000] {standard_task_runner.py:64} INFO - Started process 528 to run task
+[2026-08-10T03:48:08.222+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'football_etl', 'warehouse_load', 'scheduled__2026-08-10T02:42:00+00:00', '--job-id', '1775', '--raw', '--subdir', 'DAGS_FOLDER/football_etl_dag.py', '--cfg-path', '/tmp/tmpqjgkibs2']
+[2026-08-10T03:48:08.274+0000] {standard_task_runner.py:91} INFO - Job 1775: Subtask warehouse_load
+[2026-08-10T03:48:09.365+0000] {task_command.py:426} INFO - Running <TaskInstance: football_etl.warehouse_load scheduled__2026-08-10T02:42:00+00:00 [running]> on host b478b38d86c0
+[2026-08-10T03:48:10.590+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='football_etl' AIRFLOW_CTX_TASK_ID='warehouse_load' AIRFLOW_CTX_EXECUTION_DATE='2026-08-10T02:42:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-08-10T02:42:00+00:00'
+[2026-08-10T03:48:10.622+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-08-10T04:07:03.458+0000] {local_task_job_runner.py:313} WARNING - State of this instance has been externally set to queued. Terminating instance.
+[2026-08-10T04:07:03.534+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
+[2026-08-10T04:07:03.583+0000] {process_utils.py:132} INFO - Sending 15 to group 528. PIDs of all processes in the group: [528]
+[2026-08-10T04:07:03.600+0000] {process_utils.py:87} INFO - Sending the signal 15 to group 528
+[2026-08-10T04:08:03.589+0000] {process_utils.py:150} WARNING - process psutil.Process(pid=528, name='airflow task ru', status='sleeping', started='03:48:07') did not respond to SIGTERM. Trying SIGKILL
+[2026-08-10T04:08:03.610+0000] {process_utils.py:87} INFO - Sending the signal 9 to group 528
+[2026-08-10T04:08:03.676+0000] {process_utils.py:80} INFO - Process psutil.Process(pid=528, name='airflow task ru', status='terminated', exitcode=<Negsignal.SIGKILL: -9>, started='03:48:07') (528) terminated with exit code -9
+[2026-08-10T04:08:03.680+0000] {standard_task_runner.py:176} ERROR - ('Job 1775 was killed before it finished (likely due to running out of memory)', 'For more information, see https://airflow.apache.org/docs/apache-airflow/stable/troubleshooting.html#LocalTaskJob-killed')
